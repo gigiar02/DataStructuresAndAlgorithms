@@ -1,7 +1,66 @@
 #include <iostream>
 #include <vector>
 #define TEMPLATE template <typename T>
-#include "Albero.hpp"
+
+//Colore
+enum Color
+{
+    WHITE,
+    GRAY,
+    BLACK,
+    RED
+};
+
+
+//Classe nodo
+TEMPLATE
+class node
+{
+    //Serve ad identificare in modo univoco il nodo
+    int NodeID;
+    //PayLoad del nodo
+    T data;
+    //Lista dei figli del nodo
+    std::vector<node*> adj;
+    Color color;
+    public:
+
+    node(){NodeID = 0;}
+    node(T& data){this->data = data;}
+
+    //Colore
+    Color getColor(){ return color;}
+    void  setColor(Color newColor) {color = newColor;}
+
+    //Ottieni la lista dei figli del nodo
+    std::vector<node*> getChildren()
+    {
+        return adj;
+    }
+
+    //Ottieni il payLoad del nodo
+    T getData()
+    {
+        return data;
+    }
+
+    int getID(){ return NodeID;}
+    void setID(int id){NodeID = id;}
+
+    //Modifica il payLoad
+    void setData(T& data)
+    {
+        this->data = data;
+    }
+
+    //Aggiungi un figlio
+    void addChild(node<T>* child)
+    {
+        adj.push_back(child);
+    }
+
+};
+
 
 //Classe che rappresenta un arco ordinato del tipo (x,y);
 TEMPLATE
@@ -64,4 +123,4 @@ class Grafo{
 };
 
 
-#include "./Grafo/Grafo.tpp"
+#include "Grafo.tpp"

@@ -62,11 +62,6 @@ int AB<T>::addChild(int FatherID,T Data)
             for(auto child : f->getChildren())
             {
                 std::cout<<"Nodo con ID: "<<child->getID()<<" Valore "<<child->getData()<<std::endl;
-                treeNode<T>* temp = dynamic_cast<treeNode<T>*>(f);
-                if(temp)
-                {
-                    std::cout<<temp->getFather()->getID()<<std::endl;
-                }
             }
         }
     }

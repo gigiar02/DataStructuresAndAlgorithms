@@ -1,5 +1,3 @@
-
-
 TEMPLATE
 //Aggiunge un nuovo vertice al grafo
 int  Grafo<T>::addEdge(int ID1,int ID2)
@@ -11,7 +9,7 @@ int  Grafo<T>::addEdge(int ID1,int ID2)
     }
     node<T>* vertex1 = vertex[ID1];
     node<T>* vertex2 = vertex[ID2];
-    Edge<T>* newEdge = new Edge(vertex1,vertex2);
+    Edge<T>* newEdge = new Edge<T>(vertex1,vertex2);
     edges.push_back(newEdge);
     return 1;
 }
@@ -52,7 +50,7 @@ void Grafo<T>::print(int ID)
 
 TEMPLATE
 //Esegue la BFS partendo da un vertice x. Restituisce i cammini minimi di ogni vertice dalla sorgente
-std::vector<int> Grafo<T>::BFS(int ID)
+std::vector<int> Grafo<T>::BFS(int ID,AB<T>& tree)
 {
     //Avrei voluto fare un return di un nullptr ma da problemi
     //Se l'ID dato in input non è valido
@@ -79,20 +77,25 @@ std::vector<int> Grafo<T>::BFS(int ID)
     distance[ID] = 0;
     pila.push_back(sorgente);
 
+    //Id riferito all'albero
+    int id = tree.addChild(id,sorgente->getData());
     //Eseguo il while finche la pila è piena
     while(pila.size() != 0)
     {
         //Estrai l' elemento dalla pila e cancellalo da quest' ultima
         node<T>* u = pila[0];
+
+        std::cout<<"u ha figli?"<<u->getChildren().size()<<std::endl;
         pila.erase(pila.begin());
 
         //Scorri i figli adiacenti ad u
         for(const auto& v : u->getChildren())
         {
+            std::cout<<"Entrato"<<std::endl;
             if(v->getColor() == WHITE)
             {
                 //Aggiungi all' albero
-
+                tree.addChild(id,v->getData());
                 //Modifica colore e distanza
                 v->setColor(GRAY);
                 distance[v->getID()] = distance[u->getID()] + 1;
@@ -103,6 +106,7 @@ std::vector<int> Grafo<T>::BFS(int ID)
         }
 
         u->setColor(BLACK);
+        id++;
     }
 
     return distance;
@@ -163,3 +167,4 @@ void Grafo<T>::DFS(std::vector<int>& I, std::vector<int>& F)
         }
     }
 }
+

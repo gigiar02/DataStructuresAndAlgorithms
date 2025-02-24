@@ -12,6 +12,7 @@ enum Color
 TEMPLATE
 class node
 {
+protected:
     //Serve ad identificare in modo univoco il nodo
     int NodeID;
     //PayLoad del nodo
@@ -68,9 +69,16 @@ public:
     }
 
     //Aggiungi un figlio
-    void addChild(node<T>* child)
+    int virtual addChild(node<T>*& child)
     {
+        if(!child)
+        {
+            return -1;
+        }
         adj.push_back(child);
+
+        //In questo caso va per forza a buon fine a meno che il nodo passato in input non sia nullptr
+        return 1;
     }
 
 };

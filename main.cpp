@@ -18,18 +18,16 @@ int main()
     std::cout<<" Inizio stampa"<<std::endl;
 
     graph.printData();
-    std::vector<int> I = {0,0,0,0};
-    std::vector<int> F = {0,0,0,0};
-    graph.DFS(I,F);
+    std::vector<int> I;
+
+    AB<int> tree;
+    I = graph.BFS(0,tree);
     for(auto inizio : I)
     {
         std::cout<<"I: "<<inizio<<std::endl;
     }
+    tree.printChildren(2);
 
-    for(auto fine : F)
-    {
-        std::cout<<"F: "<<fine<<std::endl;
-    }
 
 
 

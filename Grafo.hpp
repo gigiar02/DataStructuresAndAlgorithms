@@ -53,7 +53,7 @@ class Grafo{
         void print(int ID);
 
         //Esegue la BFS partendo da un vertice x. Restituisce i cammini minimi di ogni vertice dalla sorgente
-        std::vector<int> BFS(int ID);
+        std::vector<int> BFS(int ID,AB<T>& tree);
 
         //Esegue la dfs visit prendendo in input un nodo da cui partire e i tempi di fine e di inizio
         void DFS_VISIT(node<T>*& v,std::vector<int>& I,std::vector<int>& F,int &TIME);

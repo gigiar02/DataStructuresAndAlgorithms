@@ -1,3 +1,6 @@
+#define TEMPLATE template <typename T>
+#include <vector>
+#include <iostream>
 //Colore
 enum Color
 {
@@ -13,18 +16,17 @@ TEMPLATE
 class node
 {
 protected:
-    //Serve ad identificare in modo univoco il nodo
-    int NodeID;
+
     //PayLoad del nodo
     T data;
     //Lista dei figli del nodo
-    std::vector<node*> adj;
+    std::vector<node<T>*>* adj;
     Color color;
 public:
 
     node()
     {
-        NodeID = 0;
+        adj = new std::vector<node*>();
     }
     node(T& data)
     {
@@ -42,7 +44,7 @@ public:
     }
 
     //Ottieni la lista dei figli del nodo
-    std::vector<node*> getChildren()
+    std::vector<node*>* getChildren()
     {
         return adj;
     }
@@ -51,15 +53,6 @@ public:
     T getData()
     {
         return data;
-    }
-
-    int getID()
-    {
-        return NodeID;
-    }
-    void setID(int id)
-    {
-        NodeID = id;
     }
 
     //Modifica il payLoad
@@ -75,7 +68,7 @@ public:
         {
             return -1;
         }
-        adj.push_back(child);
+        adj->push_back(child);
 
         //In questo caso va per forza a buon fine a meno che il nodo passato in input non sia nullptr
         return 1;
@@ -125,7 +118,7 @@ public:
         {
             treeNode<T>* temp = this;
             child->setFather(temp);
-            this->adj.push_back(child);
+            this->adj->push_back(child);
         }
         else
         {
@@ -143,26 +136,22 @@ TEMPLATE
 class AB
 {
     //Radice dell'Albero
-    std::vector<node<T>*> nodes;
     node<T>* root;
-    int ID;
 
 public:
 
     AB()
     {
         root = nullptr;
-        ID = 0;
     }
 
-    //Aggiungi la radice o un figlio al padre attraverso il suo ID.
-    //Se va a buon fine da in output l'ID del figlio creato
-    int addChild(int FatherID,T Data);
+    //Aggiungi un figlio al nodo passato in input
+    node<T>* addChild(node<T>*& child,T Data);
 
-    T getData(int ID);
-
-    //Stampa tutti i figli appartenenti al ID del nodo passato in input
-    void printChildren(int ID);
+    //Stampa tutti i figli appartenenti al figlio passato in input
+    void printChildren(node<T>* root);
+    //Stampa tutti i figli dell'albero
+    void printRoot();
 };
 
 #include "Albero/Albero.tpp"

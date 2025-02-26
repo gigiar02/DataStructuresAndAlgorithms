@@ -34,26 +34,23 @@ class Grafo{
     std::vector<node<T>*> vertex;
     //Archi del grafo
     std::vector<Edge<T>*> edges;
-    //Contatore ID
-    int ID;
 
 
     public:
 
-        Grafo(){ID = 0;}
+        Grafo(){}
 
         //Aggiunge un nuovo vertice al grafo
         int addVertex(T& data);
 
         //Aggiunge un arco al grafo
-        int addEdge(int ID1,int ID2);
+        int addEdge(node<T>*& one,node<T>*& two);
 
         //Metodi per stampare un singolo vertice o tutti i vertici del grafo
         void printData();
-        void print(int ID);
 
         //Esegue la BFS partendo da un vertice x. Restituisce i cammini minimi di ogni vertice dalla sorgente
-        std::vector<int> BFS(int ID,AB<T>& tree);
+        std::vector<int> BFS(node<T>*& sorgente,AB<T>& tree);
 
         //Esegue la dfs visit prendendo in input un nodo da cui partire e i tempi di fine e di inizio
         void DFS_VISIT(node<T>*& v,std::vector<int>& I,std::vector<int>& F,int &TIME);

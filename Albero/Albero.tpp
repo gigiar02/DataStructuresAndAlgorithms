@@ -1,67 +1,40 @@
 
-//Aggiungi la radice o un figlio al padre attraverso il suo ID.
-//Se va a buon fine da in output l'ID del figlio creato
 TEMPLATE
-int AB<T>::addChild(int FatherID,T Data)
-    {
+node<T>* AB<T>::addChild(node<T>*& father,T Data)
+{
         //Se la radice non esiste
         if(root == nullptr)
         {
-
             root = new treeNode<T>();
-            root->setID(0);
-            ID++;
-            nodes.push_back(root);
-            return 0;
-        }
-
-        //Altrimenti verifica che l'ID del padre esista e se esiste aggiungi un nuovo figlio
-        if(FatherID > nodes.size()-1)
-        {
-            return -1;
+            root->setData(Data);
+            return root;
         }
 
         //Inizializzo il nuovo figlio
         node<T>* newChild = new treeNode<T>();
         newChild->setData(Data);
-        newChild->setID(ID);
-        ID++;
 
         //Il padre di newChild viene impostato in questa funzione
-        if((nodes[FatherID]->addChild(newChild)) == -1)
-        {
-            return -1;
-        }
-        nodes.push_back(newChild);
-        return newChild->getID();
+        father->addChild(newChild);
+        return newChild;
 
 
-    }
+}
 
-
-    TEMPLATE
-    T AB<T>::getData(int ID)
+TEMPLATE
+void AB<T>::printChildren(node<T>* root)
+{
+    //Per ogni figlio effettua una chiamata ricorsiva
+    std::cout<<"Sono node: "<<root<<" ho valore: "<<root->getData()<<std::endl;
+    for(auto &i : *(root->getChildren()))
     {
-        T temp;
-        return ID > nodes.size() ? temp : nodes[ID]->getData();
+        //Stampa il figlio i-esimo di root
+        printChildren(i);
     }
+}
 
-
-    TEMPLATE
-    void AB<T>::printChildren(int ID)
-    {
-        std::cout<<"Inizio ID = "<<ID<<"Size = "<<nodes.size()<<std::endl;
-        if(ID < nodes.size())
-        {
-
-            node<T>* f = nodes[ID];
-            std::vector<node<T>*> numb = f->getChildren();
-            std::cout<<"Children = "<<numb.size()<<std::endl;
-
-
-            for(auto child : f->getChildren())
-            {
-                std::cout<<"Nodo con ID: "<<child->getID()<<" Valore "<<child->getData()<<std::endl;
-            }
-        }
-    }
+TEMPLATE
+void AB<T>::printRoot()
+{
+    printChildren(root);
+}

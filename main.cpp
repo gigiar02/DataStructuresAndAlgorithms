@@ -1,33 +1,17 @@
-#include "Grafo.hpp"
+#include "Albero.hpp"
 
 int main()
 {
     std::vector<int> vt = {1,100,200,300};
-    Grafo<int> graph;
-
-    for(auto h : vt)
-    {
-        graph.addVertex(h);
-    }
-
-    graph.addEdge(0,1);
-    graph.addEdge(0,2);
-    graph.addEdge(1,2);
-    graph.addEdge(2,3);
-
-    std::cout<<" Inizio stampa"<<std::endl;
-
-    graph.printData();
-    std::vector<int> I;
 
     AB<int> tree;
-    I = graph.BFS(0,tree);
-    for(auto inizio : I)
-    {
-        std::cout<<"I: "<<inizio<<std::endl;
-    }
-    tree.printChildren(2);
-
+    node<int>* nodo = new treeNode<int>();
+    nodo = tree.addChild(nodo,vt[0]);
+    node<int>* child = tree.addChild(nodo,vt[1]);
+    child = tree.addChild(nodo,vt[2]);
+    std::cout<<"Data = "<<nodo->getData()<<std::endl;
+    tree.printChildren(nodo);
+    tree.printRoot();
 
 
 

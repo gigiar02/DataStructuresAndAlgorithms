@@ -44,9 +44,10 @@ class Grafo{
         //Aggiunge un nuovo vertice al grafo
         node<T>* addVertex(node<T>*& newNode);
         node<T>* addVertex(T& data);
-
+        std::vector<node<T>*> getVertex(){ return vertex;}
         //Aggiunge un arco al grafo
         void addEdge(node<T>*& one,node<T>*& two,int W);
+        void addEdge(int key1,int key2,int W);
 
         //Metodi per stampare un singolo vertice o tutti i vertici del grafo
         void printDistance();

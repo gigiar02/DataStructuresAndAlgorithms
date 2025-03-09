@@ -66,6 +66,42 @@ void  Grafo<T>::addEdge(node<T>*& x,node<T>*& y,int W)
 }
 
 
+//Aggiunge un arco attraverso la sua key
+TEMPLATE
+void Grafo<T>::addEdge(int key1,int key2,int W)
+{
+    bool eKey1 = false;
+    bool eKey2 = false;
+    T data1,data2;
+
+    data1.key = key1;
+    data2.key = key2;
+
+    node<T>* nKey1 = new node<T>(data1);
+    node<T>* nKey2 = new node<T>(data2);
+
+    for(auto& x : this->vertex)
+   {
+       //Se esiste già il nodo di cui vuoi creare un arco
+       if(x->getData().key == key1)
+       {
+           eKey1 = true;
+           nKey1 = x;
+       }
+
+       if(x->getData().key == key2)
+       {
+           eKey2 = true;
+           nKey2 = x;
+       }
+
+   }
+
+   //Aggiungi l'arco
+   this->addEdge(nKey1,nKey2,W);
+}
+
+
 TEMPLATE
 void Grafo<T>::printDistance()
 {

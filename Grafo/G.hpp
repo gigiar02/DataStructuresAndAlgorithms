@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #define TEMPLATE template <typename T>
-#include "../Albero.hpp"
+#include "Albero.hpp"
 
 
 //Classe che rappresenta un arco ordinato del tipo (x,y);
@@ -66,5 +66,5 @@ class Grafo{
 };
 
 
-#include "Grafo.tpp"
+#include "./Grafo/Grafo.tpp"
 

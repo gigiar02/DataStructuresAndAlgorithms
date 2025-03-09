@@ -1,5 +1,4 @@
 
-
 TEMPLATE
 void popolaGrafo(std::string path)
 {

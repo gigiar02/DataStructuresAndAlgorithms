@@ -15,42 +15,63 @@ enum Color
 TEMPLATE
 class node
 {
+
 protected:
 
     //PayLoad del nodo
     T data;
+    //predecessore del nodo
+    node<T>* father;
     //Lista dei figli del nodo
-    std::vector<node<T>*>* adj;
+    std::vector<node<T>*> adj;
     Color color;
+
 public:
 
     node()
     {
-        adj = new std::vector<node*>();
+        father = nullptr;
     }
+
+
     node(T& data)
     {
         this->data = data;
+        father = nullptr;
     }
+
 
     //Colore
     Color getColor()
     {
         return color;
     }
+
     void  setColor(Color newColor)
     {
         color = newColor;
     }
 
+
     //Ottieni la lista dei figli del nodo
-    std::vector<node*>* getChildren()
+    std::vector<node<T>*> getChildren()
     {
         return adj;
     }
 
+    node<T>* getFather()
+    {
+        return father;
+    }
+
+    void setFather(node<T>*& father)
+    {
+        this->father = father;
+    }
+
+
     //Ottieni il payLoad del nodo
-    T getData()
+    T& getData()
     {
         return data;
     }
@@ -64,12 +85,14 @@ public:
     //Aggiungi un figlio
     int virtual addChild(node<T>*& child)
     {
+
         if(!child)
         {
             return -1;
-        }
-        adj->push_back(child);
 
+        }
+
+        this->adj.push_back(child);
         //In questo caso va per forza a buon fine a meno che il nodo passato in input non sia nullptr
         return 1;
     }
@@ -147,6 +170,7 @@ public:
 
     //Aggiungi un figlio al nodo passato in input
     node<T>* addChild(node<T>*& child,T Data);
+    node<T>* addChild(node<T>*& father,node<T>*& child);
 
     //Stampa tutti i figli appartenenti al figlio passato in input
     void printChildren(node<T>* root);

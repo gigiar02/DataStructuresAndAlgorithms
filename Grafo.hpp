@@ -3,6 +3,7 @@
 #define TEMPLATE template <typename T>
 #include "Albero.hpp"
 
+
 //Classe che rappresenta un arco ordinato del tipo (x,y);
 TEMPLATE
 class Edge
@@ -13,10 +14,11 @@ class Edge
     public:
 
     //Al costruttore passiamo il nodo x e il nodo y. Si farà puntare il nodo x al nodo y
-    Edge(node<T>*& x,node<T>*& y)
+    Edge(node<T>*& x,node<T>*& y,int W)
     {
         this->x = x;
         this->y = y;
+        this->weight = W;
         //Aggiugiamo un nuovo nodo ad x
         x->addChild(y);
     }
@@ -29,33 +31,35 @@ class Edge
 //Classe grafo: vertici + archi
 TEMPLATE
 class Grafo{
-    //Vertici del grafo. Da notare che l ID del nodo permette di accedere
-    //ad un vertice nello specifico
+
+    //Vertici del grafo.
     std::vector<node<T>*> vertex;
     //Archi del grafo
     std::vector<Edge<T>*> edges;
-
 
     public:
 
         Grafo(){}
 
         //Aggiunge un nuovo vertice al grafo
-        int addVertex(T& data);
+        node<T>* addVertex(node<T>*& newNode);
+        node<T>* addVertex(T& data);
 
         //Aggiunge un arco al grafo
-        int addEdge(node<T>*& one,node<T>*& two);
+        void addEdge(node<T>*& one,node<T>*& two,int W);
 
         //Metodi per stampare un singolo vertice o tutti i vertici del grafo
-        void printData();
+        void printDistance();
+        void printTime();
 
         //Esegue la BFS partendo da un vertice x. Restituisce i cammini minimi di ogni vertice dalla sorgente
-        std::vector<int> BFS(node<T>*& sorgente,AB<T>& tree);
+        void BFS(node<T>*& sorgente);
 
         //Esegue la dfs visit prendendo in input un nodo da cui partire e i tempi di fine e di inizio
-        void DFS_VISIT(node<T>*& v,std::vector<int>& I,std::vector<int>& F,int &TIME);
+        void DFS_VISIT(node<T>*& v,int &TIME);
+
         //Esegue la DFS e restituisce i tempi di inizio e di fine
-        void DFS(std::vector<int>& I, std::vector<int>& F);
+        void DFS();
 
 
 };

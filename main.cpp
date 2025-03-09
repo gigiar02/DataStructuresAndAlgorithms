@@ -3,10 +3,10 @@
 class P
 {
 public:
-    int key;
-    int distance;
-    int START;
-    int END;
+    int key = 0;
+    int distance = 0;
+    int START = 0;
+    int END = 0;
 };
 
 
@@ -38,7 +38,8 @@ int main()
     */
 
     std::string path("graph.txt");
-    popolaGrafo<P>("File/graph.txt");
+    popolaGrafo<P>("File/graph.txt",type::PRIM);
+
 
 
 

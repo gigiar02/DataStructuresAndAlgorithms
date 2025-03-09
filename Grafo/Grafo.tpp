@@ -225,3 +225,26 @@ void Grafo<T>::DFS()
     }
 }
 
+////Trova un' MST(Minimum Spanning Tree)
+TEMPLATE
+void Grafo<T>::Prim(node<T>*& s)
+{
+    //Queue di minima priorità
+    std::priority_queue<Edge<T>*,std::vector<Edge<T>*>,Compare<T>> Q;
+    std::vector<Edge<T>*> edge = this->edges;
+    for(auto x : edge)
+    {
+        x->getX()->getData().distance = 0;
+        Q.push(x);
+    }
+
+
+    while(!Q.empty())
+    {
+        std::cout<<Q.top()->getW()<<std::endl;
+        Q.pop();
+
+    }
+
+
+}

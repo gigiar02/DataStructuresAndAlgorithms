@@ -1,6 +1,104 @@
 
 TEMPLATE
-void popolaGrafo(std::string path)
+void BFS_FILE(Grafo<T>& G)
+{
+    //Apro il file su cui scrivere in output
+    std::ofstream out("File/out.txt");
+    if(!out)
+    {
+        perror("Il file per la scrittura out.txt non è stato aperto correttamente");
+    }
+
+    std::string fileout = " Before BFS \n ";
+
+    std::vector<node<T>*> v = G.getVertex();
+
+    //Distanze prima della bfs
+    for(auto& x : v)
+    {
+
+        std::string key = std::to_string(x->getData().key);
+        std::string distance = std::to_string(x->getData().distance);
+        fileout = fileout + " KEY: " + key  + " DISTANCE " + distance + " \n";
+    }
+
+    fileout = fileout + " After BFS : \n ";
+
+    G.BFS(v[0]);
+
+    for(auto& x : v)
+    {
+
+        std::string key = std::to_string(x->getData().key);
+        std::string distance = std::to_string(x->getData().distance);
+        std::string father = "NULL";
+        if(x->getFather())
+        {
+            father = std::to_string(x->getFather()->getData().key);
+        }
+
+
+        fileout = fileout + " KEY: " + key  + " DISTANCE " + distance +  " PREDECESSOR: " + father + " \n";
+    }
+
+
+    out << fileout;
+
+    out.close();
+}
+
+//Operazione DFS
+TEMPLATE
+void DFS_FILE(Grafo<T>& G)
+{
+    std::ofstream out("File/out.txt");
+    std::string buff = "PRE DFS \n";
+    if(!out)
+    {
+        perror("Errore nell'apertura del file");
+    }
+
+    std::vector<node<T>*> vert = G.getVertex();
+
+    for(auto& v : vert)
+    {
+        std::string s = std::to_string(v->getData().START);
+        std::string f = std::to_string(v->getData().END);
+        std::string key = std::to_string(v->getData().key);
+        std::string p = "NULL";
+        if(v->getFather())
+        {
+            p = std::to_string(v->getFather()->getData().key);
+        }
+
+        buff += " KEY = " + key + " START = " + s + " END = " + f + " PREDECESSOR = " + p + "\n";
+    }
+
+    G.DFS();
+
+    buff += "POST DFS \n";
+    for(auto& v : vert)
+    {
+        std::string s = std::to_string(v->getData().START);
+        std::string f = std::to_string(v->getData().END);
+        std::string key = std::to_string(v->getData().key);
+        std::string p = "NULL";
+        if(v->getFather())
+        {
+            p = std::to_string(v->getFather()->getData().key);
+        }
+
+        buff += " KEY = " + key + " START = " + s + " END = " + f + " PREDECESSOR = " + p + "\n";
+    }
+
+    out << buff;
+    out.close();
+
+}
+
+
+TEMPLATE
+void popolaGrafo(std::string path,type operation)
 {
     Grafo<T> G;
     std::string row;
@@ -39,7 +137,6 @@ void popolaGrafo(std::string path)
         data1.key = std::stoi(row,&pos);
         data2.key = std::stoi(row.substr(pos),&pos);
         W =  std::stoi(row.substr(pos + 1),&pos);
-        std::cout<<"data1 : "<<data1.key<<" data2: "<<data2.key<<" W: "<< W<<std::endl;
 
         //Creazione ed inserimento nodi
         //node<T>* first = new node<T>(data1);
@@ -53,57 +150,29 @@ void popolaGrafo(std::string path)
 
     //Chiudo il file per la lettura
     inFile.close();
-
-    //Apro il file su cui scrivere in output
-    std::ofstream out("File/out.txt");
-    if(!out)
-    {
-        perror("Il file per la scrittura out.txt non è stato aperto correttamente");
-    }
-
-    std::string fileout = " Before BFS \n";
-
     std::vector<node<T>*> v = G.getVertex();
-
-    //Distanze prima della bfs
-    std::cout<<"Distanza pre bfs"<<std::endl;
-    for(auto& x : v)
+    //Fase di scelta tra le diverse operazioni
+    switch(operation)
     {
-
-        std::string key = std::to_string(x->getData().key);
-        std::string distance = std::to_string(x->getData().distance);
-        std::cout<<"KEY: "<<key<<" DISTANCE: "<<distance<<std::endl;
-        fileout = fileout + " KEY: " + key  + " DISTANCE " + distance + " \n";
+        case type::BFS :
+            BFS_FILE(G);
+            break;
+        case type::DFS :
+            DFS_FILE(G);
+            break;
+        case type::PRIM :
+            G.Prim(v[0]);
+            break;
+        case type::NOTHING :
+            break;
+        default:
+            break;
     }
-
-    fileout = fileout + " After BFS : \n";
-
-    G.BFS(v[0]);
-
-    for(auto& x : v)
-    {
-
-        std::string key = std::to_string(x->getData().key);
-        std::string distance = std::to_string(x->getData().distance);
-        std::string father = "NULL";
-        if(x->getFather())
-        {
-            father = std::to_string(x->getFather()->getData().key);
-        }
-
-        std::cout<<"KEY: "<<key<<" DISTANCE: "<<distance<<" PREDECESSOR: "<<father<<std::endl;;
-
-        fileout = fileout + " KEY: " + key  + " DISTANCE " + distance +  " PREDECESSOR: " + father + " \n";
-    }
-
-
-    std::cout<<fileout<<std::endl;
-    out << fileout;
-
-    out.close();
 
 
 
 
 }
+
+
 

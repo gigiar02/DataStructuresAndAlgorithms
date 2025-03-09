@@ -2,7 +2,7 @@
 #include <vector>
 #define TEMPLATE template <typename T>
 #include "../Albero.hpp"
-
+#include <queue>
 
 //Classe che rappresenta un arco ordinato del tipo (x,y);
 TEMPLATE
@@ -10,8 +10,8 @@ class Edge
 {
     node<T>* x;
     node<T>* y;
-    int weight = 0;
     public:
+        int weight = 0;
 
     //Al costruttore passiamo il nodo x e il nodo y. Si farà puntare il nodo x al nodo y
     Edge(node<T>*& x,node<T>*& y,int W)
@@ -25,8 +25,18 @@ class Edge
 
     node<T>* getX(){return x;}
     node<T>* getY(){return y;}
+    int getW(){return weight;}
 };
 
+TEMPLATE
+class Compare
+{
+   public:
+    bool operator()(const Edge<T>* a, const Edge<T>* b)
+    {
+        return a->weight > b->weight;
+    }
+};
 
 //Classe grafo: vertici + archi
 TEMPLATE
@@ -53,6 +63,8 @@ class Grafo{
         void printDistance();
         void printTime();
 
+        //Ordina gli archi in modo crescente o decrescente
+        void sort();
         //Esegue la BFS partendo da un vertice x. Restituisce i cammini minimi di ogni vertice dalla sorgente
         void BFS(node<T>*& sorgente);
 
@@ -61,6 +73,10 @@ class Grafo{
 
         //Esegue la DFS e restituisce i tempi di inizio e di fine
         void DFS();
+
+        //Esegue prim
+        void Prim(node<T>*& s);
+
 
 
 };

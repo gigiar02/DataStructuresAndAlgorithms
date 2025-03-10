@@ -7,6 +7,7 @@ public:
     int distance = 0;
     int START = 0;
     int END = 0;
+    bool extracted = false;
 };
 
 
@@ -37,8 +38,12 @@ int main()
     andonio.printTime();
     */
 
-    std::string path("graph.txt");
-    popolaGrafo<P>("File/graph.txt",type::PRIM);
+    std::string path("File/graph.txt");
+    type tipo = type::PRIM;
+    popolaGrafo<P>(path,tipo);
+
+
+
 
 
 

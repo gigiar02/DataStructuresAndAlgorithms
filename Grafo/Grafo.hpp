@@ -3,6 +3,9 @@
 #define TEMPLATE template <typename T>
 #include "../Albero.hpp"
 #include <queue>
+#include <climits>
+#include <unordered_map>
+#include <fstream>
 
 //Classe che rappresenta un arco ordinato del tipo (x,y);
 TEMPLATE
@@ -32,20 +35,27 @@ TEMPLATE
 class Compare
 {
    public:
-    bool operator()(const Edge<T>* a, const Edge<T>* b)
+    bool operator()(const node<T>* a, const node<T>* b)
     {
-        return a->weight > b->weight;
+        return a->getConstData().distance > b->getConstData().distance;
     }
 };
 
 //Classe grafo: vertici + archi
+struct PairHash {
+    template <typename T1, typename T2>
+    std::size_t operator()(const std::pair<T1, T2>& pair) const {
+        return std::hash<T1>()(pair.first) ^ (std::hash<T2>()(pair.second) << 1);
+    }
+};
+
 TEMPLATE
 class Grafo{
 
     //Vertici del grafo.
     std::vector<node<T>*> vertex;
     //Archi del grafo
-    std::vector<Edge<T>*> edges;
+    std::unordered_map<std::pair<node<T>*,node<T>*>, int,PairHash> edges;
 
     public:
 

@@ -76,6 +76,10 @@ public:
         return data;
     }
 
+    const T& getConstData() const {  // Aggiungi il qualificatore 'const'
+        return data;
+    }
+
     //Modifica il payLoad
     void setData(T& data)
     {

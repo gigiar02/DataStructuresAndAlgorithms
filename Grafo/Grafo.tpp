@@ -1,3 +1,5 @@
+//Classe grafo: vertici + archi
+
 
 TEMPLATE
 //Aggiunge un arco al grafo
@@ -58,9 +60,9 @@ void  Grafo<T>::addEdge(node<T>*& x,node<T>*& y,int W)
         }
 
 
-    //Crea un nuovo arco e aggiungilo alla lista di archi
-    Edge<T>* newEdge = new Edge<T>(x,y,W);
-    edges.push_back(newEdge);
+    //Crea un nuovo arco
+    edges[{x,y}] = W;
+    x->addChild(y);
 
 
 }
@@ -225,26 +227,102 @@ void Grafo<T>::DFS()
     }
 }
 
-////Trova un' MST(Minimum Spanning Tree)
+//Trova un' MST(Minimum Spanning Tree)
 TEMPLATE
 void Grafo<T>::Prim(node<T>*& s)
 {
     //Queue di minima priorità
-    std::priority_queue<Edge<T>*,std::vector<Edge<T>*>,Compare<T>> Q;
-    std::vector<Edge<T>*> edge = this->edges;
-    for(auto x : edge)
+    std::priority_queue<node<T>*,std::vector<node<T>*>,Compare<T>> Q;
+    std::vector<node<T>*> vertex = this->getVertex();
+    node<T>* u = new node<T>();
+    std::unordered_map<std::pair<node<T>*,node<T>*>, int,PairHash> mst;
+    node<T>* f;
+    node<T>* node = nullptr;
+    std::string buff = "PRE PRIM \n";
+    std::string key;
+    std::string predecessor;
+    std::string distance;
+    std::string edge;
+
+    //Setta la distanza rispetto ad s
+    for(auto& x : this->getVertex())
     {
-        x->getX()->getData().distance = 0;
+        if(x != s)
+        {
+            x->getData().distance = INT_MAX;
+            x->setFather(node);
+            x->getData().extracted = false;
+        }
+    }
+
+    s->getData().distance = 0;
+    s->setFather(node);
+
+    for(auto& x : vertex)
+    {
+        key = std::to_string(x->getData().key);
+        distance = std::to_string(x->getData().distance);
+        predecessor = "NULLPTR";
+        buff += "KEY : " + key + " DISTANCE " + distance + " PREDECESSOR " + predecessor + "\n";
         Q.push(x);
     }
 
+    for (const auto& [key, value] : edges) {
+        std::cout << "Chiave: (" << key.first << ", " << key.second << ") "
+                  << "Valore: " << value << std::endl;
+    }
 
+    //std::unordered_map<std::pair<node<T>*,node<T>*>, int,PairHash> mst;
+    buff += " After Prim: \n";
     while(!Q.empty())
     {
-        std::cout<<Q.top()->getW()<<std::endl;
+        u = Q.top();
         Q.pop();
 
+        if(u->getFather() && !u->getData().extracted)
+        {
+            f = u->getFather();
+            //mst[{f,u}] = edges[{f,u}];
+            key = std::to_string(u->getData().key);
+            std::string key2 = std::to_string(f->getData().key);
+            edge = std::to_string(edges[{f,u}]);
+            buff += " u: " + key2 + " v: " + key + " weight: " + edge + " \n";
+
+        }
+        u->getData().extracted = true;
+        for(auto& v : u->getChildren())
+        {
+            //Se v non è già stato estratto e w(u,v) < d[v]
+            if(!v->getData().extracted && edges[{u,v}] < v->getData().distance)
+            {
+
+                //Imposto la distanza
+                v->getData().distance = edges[{u,v}];
+
+                //Imposto il predecessore v
+                v->setFather(u);
+
+                //Inserisco nella coda v in modo tale che possa essere estratto
+                Q.push(v);
+            }
+        }
+
     }
+
+    std::ofstream out("File/out.txt");
+    if(!out)
+    {
+        perror("Errore nell'apertura del file");
+    }
+
+    out << buff;
+    out.close();
+
+
+
+
+
+
 
 
 }

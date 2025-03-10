@@ -1,5 +1,4 @@
 #include "../Grafo/Grafo.hpp"
-#include <fstream>
 enum class type
 {
     BFS,

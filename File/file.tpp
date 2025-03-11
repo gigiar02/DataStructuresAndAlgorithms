@@ -143,7 +143,7 @@ void popolaGrafo(std::string path,type operation)
         //node<T>* second = new node<T>(data2);
 
         //Crea arco non orientato
-        G.addEdge(data1.key,data2.key,W);
+        G.addUnorientedEdge(data1.key,data2.key,W);
         //G.addEdge(data2.key,data1.key,W);
 
     }

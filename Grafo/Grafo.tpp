@@ -67,6 +67,87 @@ void  Grafo<T>::addEdge(node<T>*& x,node<T>*& y,int W)
 
 }
 
+//Aggiungi un arco non orientato
+TEMPLATE
+//Aggiunge un nuovo vertice al grafo
+void  Grafo<T>::addUnorientedEdge(node<T>*& x,node<T>*& y,int W)
+{
+    bool v_x = false;
+    bool v_y = false;
+
+    //Controlla l'esistenza dei vertici e se non esistono già creali
+    for( auto& nodo : this->vertex)
+    {
+
+        if(nodo == x)
+        {
+            v_x = true;
+        }
+    }
+
+    if(!v_x)
+    {
+        this->addVertex(x);
+    }
+
+    for(auto& nodo : this->vertex)
+    {
+        //std::cout<<"Fin"<<std::endl;
+        if(nodo == y)
+        {
+            v_y = true;
+        }
+    }
+
+    if(!v_y)
+        {
+            this->addVertex(y);
+        }
+
+
+    //Crea un nuovo arco
+    edges[{x,y}] = W;
+    x->addChild(y);
+    y->addChild(x);
+
+
+}
+
+
+//Aggiunge un arco attraverso la sua key
+TEMPLATE
+void Grafo<T>::addUnorientedEdge(int key1,int key2,int W)
+{
+    bool eKey1 = false;
+    bool eKey2 = false;
+    T data1,data2;
+
+    data1.key = key1;
+    data2.key = key2;
+
+    node<T>* nKey1 = new node<T>(data1);
+    node<T>* nKey2 = new node<T>(data2);
+
+    for(auto& x : this->vertex)
+   {
+       //Se esiste già il nodo di cui vuoi creare un arco
+       if(x->getData().key == key1)
+       {
+           eKey1 = true;
+           nKey1 = x;
+       }
+
+       if(x->getData().key == key2)
+       {
+           eKey2 = true;
+           nKey2 = x;
+       }
+
+   }
+
+   //Aggiungi l'arco
+   this->addUnorientedEdge(nKey1,nKey2,W);
+}
 
 //Aggiunge un arco attraverso la sua key
 TEMPLATE

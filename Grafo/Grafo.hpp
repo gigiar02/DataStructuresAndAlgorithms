@@ -46,6 +46,8 @@ class Grafo{
         //Aggiunge un arco al grafo
         void addEdge(node<T>*& one,node<T>*& two,int W);
         void addEdge(int key1,int key2,int W);
+        void addUnorientedEdge(node<T>*& one,node<T>*& two,int W);
+        void addUnorientedEdge(int key1,int key2,int W);
 
         //Metodi per stampare un singolo vertice o tutti i vertici del grafo
         void printDistance();

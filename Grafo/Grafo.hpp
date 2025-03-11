@@ -7,30 +7,6 @@
 #include <unordered_map>
 #include <fstream>
 
-//Classe che rappresenta un arco ordinato del tipo (x,y);
-TEMPLATE
-class Edge
-{
-    node<T>* x;
-    node<T>* y;
-    public:
-        int weight = 0;
-
-    //Al costruttore passiamo il nodo x e il nodo y. Si farà puntare il nodo x al nodo y
-    Edge(node<T>*& x,node<T>*& y,int W)
-    {
-        this->x = x;
-        this->y = y;
-        this->weight = W;
-        //Aggiugiamo un nuovo nodo ad x
-        x->addChild(y);
-    }
-
-    node<T>* getX(){return x;}
-    node<T>* getY(){return y;}
-    int getW(){return weight;}
-};
-
 TEMPLATE
 class Compare
 {
@@ -40,6 +16,7 @@ class Compare
         return a->getConstData().distance > b->getConstData().distance;
     }
 };
+
 
 //Classe grafo: vertici + archi
 struct PairHash {
@@ -54,6 +31,7 @@ class Grafo{
 
     //Vertici del grafo.
     std::vector<node<T>*> vertex;
+
     //Archi del grafo
     std::unordered_map<std::pair<node<T>*,node<T>*>, int,PairHash> edges;
 
@@ -73,8 +51,6 @@ class Grafo{
         void printDistance();
         void printTime();
 
-        //Ordina gli archi in modo crescente o decrescente
-        void sort();
         //Esegue la BFS partendo da un vertice x. Restituisce i cammini minimi di ogni vertice dalla sorgente
         void BFS(node<T>*& sorgente);
 

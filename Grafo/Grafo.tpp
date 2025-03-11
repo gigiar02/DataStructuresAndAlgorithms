@@ -1,6 +1,5 @@
 //Classe grafo: vertici + archi
 
-
 TEMPLATE
 //Aggiunge un arco al grafo
 node<T>* Grafo<T>::addVertex(T& data)
@@ -12,6 +11,7 @@ node<T>* Grafo<T>::addVertex(T& data)
     vertex.push_back(newNode);
     return newNode;
 }
+
 
 TEMPLATE
 //Aggiunge un arco al grafo
@@ -112,6 +112,7 @@ void Grafo<T>::printDistance()
         std::cout<<"ID = "<<v<<" data:"<<v->getData().key<<std::endl;
     }
 }
+
 
 TEMPLATE
 void Grafo<T>::printTime()
@@ -281,12 +282,20 @@ void Grafo<T>::Prim(node<T>*& s)
 
         if(u->getFather() && !u->getData().extracted)
         {
+            mst[{f,u}] = edges[{f,u}];
             f = u->getFather();
-            //mst[{f,u}] = edges[{f,u}];
             key = std::to_string(u->getData().key);
             std::string key2 = std::to_string(f->getData().key);
             edge = std::to_string(edges[{f,u}]);
-            buff += " u: " + key2 + " v: " + key + " weight: " + edge + " \n";
+
+            //Aggiorno il numero di figli del padre
+            f->getData().numChild++;
+
+            //
+            std::string numChild = std::to_string(f->getData().numChild);
+
+            //Aggiungo al buffer l'arco del mst
+            buff += " u: " + key2 + " v: " + key + " weight: " + edge + "NUMERO FIGLI PADRE: " + numChild +  " \n";
 
         }
         u->getData().extracted = true;
@@ -308,6 +317,7 @@ void Grafo<T>::Prim(node<T>*& s)
         }
 
     }
+
 
     std::ofstream out("File/out.txt");
     if(!out)

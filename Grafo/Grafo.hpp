@@ -69,6 +69,9 @@ class Grafo{
 
 };
 
+TEMPLATE
+bool isBinaryTree(std::unordered_map<std::pair<node<T>*,node<T>*>,int>& map);
+
 
 #include "Grafo.tpp"
 

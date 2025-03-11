@@ -2,39 +2,19 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="File\file.tpp" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Grafo\Grafo.hpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="3" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3696" topLine="132" />
+			<Cursor1 position="2016" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="5" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="275" topLine="0" />
+			<Cursor1 position="275" topLine="4" />
 		</Cursor>
 	</File>
 	<File name="File\out.txt" open="1" top="1" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="536" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Albero\Albero.tpp" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="3" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="746" topLine="30" />
-		</Cursor>
-	</File>
-	<File name="Grafo\Grafo.tpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="3" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="6155" topLine="278" />
-		</Cursor>
-	</File>
-	<File name="Grafo\Grafo.hpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="3" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1216" topLine="40" />
-		</Cursor>
-	</File>
-	<File name="File\graph.txt" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="64" topLine="0" />
+			<Cursor1 position="265" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="Albero.hpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -42,9 +22,29 @@
 			<Cursor1 position="2068" topLine="149" />
 		</Cursor>
 	</File>
+	<File name="Grafo\Grafo.tpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="3" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="8206" topLine="374" />
+		</Cursor>
+	</File>
+	<File name="File\graph.txt" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="17" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="File\file.tpp" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2723" topLine="92" />
+		</Cursor>
+	</File>
 	<File name="File\file.hpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="379" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Albero\Albero.tpp" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="3" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="746" topLine="30" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

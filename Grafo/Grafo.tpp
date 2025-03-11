@@ -1,4 +1,18 @@
-//Classe grafo: vertici + archi
+
+
+TEMPLATE
+bool isBinaryTree(std::unordered_map<std::pair<node<T>*,node<T>*>,int,PairHash>& map)
+{
+    for (const auto& [key, value] : map)
+    {
+            if(key.first->getData().numChild > 2 || key.second->getData().numChild > 2 )
+            {
+                return false;
+            }
+    }
+    return true;
+}
+
 
 TEMPLATE
 //Aggiunge un arco al grafo
@@ -354,6 +368,7 @@ void Grafo<T>::Prim(node<T>*& s)
                   << "Valore: " << value << std::endl;
     }
 
+
     //std::unordered_map<std::pair<node<T>*,node<T>*>, int,PairHash> mst;
     buff += " After Prim: \n";
     while(!Q.empty())
@@ -363,8 +378,8 @@ void Grafo<T>::Prim(node<T>*& s)
 
         if(u->getFather() && !u->getData().extracted)
         {
-            mst[{f,u}] = edges[{f,u}];
             f = u->getFather();
+            mst[{f,u}] = edges[{f,u}];
             key = std::to_string(u->getData().key);
             std::string key2 = std::to_string(f->getData().key);
             edge = std::to_string(edges[{f,u}]);
@@ -404,6 +419,14 @@ void Grafo<T>::Prim(node<T>*& s)
     if(!out)
     {
         perror("Errore nell'apertura del file");
+    }
+
+    if(!isBinaryTree(mst))
+    {
+        buff += " NON è UN ALBERO BINARIO \n";
+    }else
+    {
+        buff += " è UN ALBERO BINARIO \n";
     }
 
     out << buff;

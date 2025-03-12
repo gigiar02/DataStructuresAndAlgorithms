@@ -14,24 +14,7 @@ public:
 
 int main()
 {
-
-    hashTable<int,std::string> H(999);
-    item<int,std::string>* it = new item<int,std::string>(1,"ciao");
-    H.insert(it);
-    std::ofstream out("HashTable/out.txt");
-    if(!out)
-    {
-        perror("Errore");
-    }
-
-    H.print(out);
-    out.close();
-
-
-
-
-
-
-
+    std::string cicl("File/graph.txt");
+    popolaGrafo<P>(cicl,type::CICLO_HAMILTONIANO);
     return 0;
 }

@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#define TEMPLATE template <typename T>
 #include "../Albero.hpp"
 #include <queue>
 #include <climits>

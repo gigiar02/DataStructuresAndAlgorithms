@@ -97,6 +97,70 @@ void DFS_FILE(Grafo<T>& G)
 }
 
 
+//Verifica se nel grafo c'è almeno un ciclo hamiltoniano. Se ciò è vero stampa tutti i nodi di tale ciclo
+TEMPLATE
+bool CICLO_HAMILTONIANO(Grafo<T>& G,std::ofstream& out,node<T>*& start,node<T>*& current,int total)
+{
+    current->setColor(GRAY);
+    int key = current->getData().key;
+
+
+    for(auto& v : current->getChildren())
+    {
+
+        //Se il nodo corrente è l'ultimo nodo e ha come figlio il nodo di partenza
+        if(v == start && total == G.getVertex().size())
+        {
+            int key = v->getData().key;
+            out<<" Ultimo nodo: "<<key<<" \n";
+            return true;
+        }
+
+        //Se il nodo non è stato visitato
+        if(v->getColor() == WHITE)
+        {
+            if(CICLO_HAMILTONIANO(G,out,start,v,total+1))
+            {
+                int key = v->getData().key;
+                out<<" Nodo interno: "<<key<<" \n";
+                return true;
+            }
+        }
+    }
+
+    current->setColor(WHITE);
+    return false;
+}
+
+
+TEMPLATE
+void verificaCiclo(Grafo<T>& G)
+{
+    std::ofstream out("File/out.txt");
+    if(!out)
+    {
+        perror("Errore nell' apertura del file");
+        return;
+    }
+
+    for(auto& u : G.getVertex())
+    {
+        if(u->getColor() == WHITE)
+        {
+            if(CICLO_HAMILTONIANO(G,out,u,u,1))
+            {
+                out<<"è un ciclo hamiltoniano \n";
+                return;
+            }
+        }
+    }
+
+    out<<"Non è un ciclo hamiltoniano";
+    out.close();
+}
+
+
+
 TEMPLATE
 void popolaGrafo(std::string path,type operation)
 {
@@ -164,6 +228,9 @@ void popolaGrafo(std::string path,type operation)
             G.Prim(v[0]);
             break;
         case type::NOTHING :
+            break;
+        case type::CICLO_HAMILTONIANO :
+            verificaCiclo(G);
             break;
         default:
             break;

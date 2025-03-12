@@ -1,6 +1,6 @@
-#define TEMPLATE template <typename T>
 #include <vector>
 #include <iostream>
+#define TEMPLATE template <typename T>
 //Colore
 enum Color
 {
@@ -31,6 +31,7 @@ public:
     node()
     {
         father = nullptr;
+        color = WHITE;
     }
 
 
@@ -38,6 +39,7 @@ public:
     {
         this->data = data;
         father = nullptr;
+        color = WHITE;
     }
 
 

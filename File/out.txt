@@ -1,4 +1,5 @@
- Ultimo nodo: 1 
- Nodo interno: 3 
- Nodo interno: 2 
-è un ciclo hamiltoniano 
+ NODO : 1 START 1 END 2
+ NODO : 2 START 2 END 3
+ NODO : 4 START 3 END 4
+ NODO : 3 START 4 END 5
+ NODO : 5 START 5 END 6

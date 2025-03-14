@@ -47,6 +47,7 @@ void BFS_FILE(Grafo<T>& G)
     out.close();
 }
 
+
 //Operazione DFS
 TEMPLATE
 void DFS_FILE(Grafo<T>& G)
@@ -93,6 +94,77 @@ void DFS_FILE(Grafo<T>& G)
 
     out << buff;
     out.close();
+
+}
+
+TEMPLATE
+void dfsVisit(node<T>*& u,std::stack<node<T>*>& S,int TIME)
+{
+    TIME += 1;
+    u->getData().START = TIME;
+    u->setColor(GRAY);
+
+    for(auto& v : u->getChildren())
+    {
+        if(v->getColor() == WHITE)
+        {
+            dfsVisit(v,S,TIME);
+        }
+    }
+
+    TIME += 1;
+    u->getData().END = TIME;
+    u->setColor(BLACK);
+
+    //Aggiungi u allo stack
+    S.push(u);
+
+}
+
+
+//DFS TOPOLOGICA
+TEMPLATE
+void DfsTopologica(Grafo<T>& G)
+{
+    std::ofstream out("File/out.txt");
+    if(!out)
+    {
+        perror("Errore durante l'apertura del file");
+        return;
+    }
+   //Stack in cui avrò gli elementi ordinati in maniera topologica
+   std::stack<node<T>*> S;
+   std::vector<node<T>*> vertex = G.getVertex();
+
+   //Inizializzazione
+   for(auto& v : vertex)
+   {
+       v->setColor(WHITE);
+       v->getData().START = 0;
+       v->getData().END = 0;
+   }
+   int TIME = 0;
+   for(auto& v : vertex)
+   {
+       if(v->getColor() == WHITE)
+       {
+           dfsVisit(v,S,TIME);
+       }
+   }
+
+   //Scrittura su file di output
+   while(!S.empty())
+   {
+       node<T>* x = S.top();
+       int key = x->getData().key;
+       int START = x->getData().START;
+       int END = x->getData().END;
+
+       out<<" NODO : "<<key<<" START "<<START<<" END "<<END<<std::endl;
+       S.pop();
+   }
+
+   out.close();
 
 }
 
@@ -161,16 +233,17 @@ void verificaCiclo(Grafo<T>& G)
 
 
 
+
 TEMPLATE
-void popolaGrafo(std::string path,type operation)
+void popolaGrafo(fileType path,type operation)
 {
     Grafo<T> G;
     std::string row;
     int num_nodi;
     int num_archi;
-
+    std::string name = getFileName(path);
     //Apri il file in lettura
-    std::ifstream inFile(path);
+    std::ifstream inFile(name);
     if(!inFile)
     {
         perror("Errore nell' apertura del file");
@@ -231,6 +304,9 @@ void popolaGrafo(std::string path,type operation)
             break;
         case type::CICLO_HAMILTONIANO :
             verificaCiclo(G);
+            break;
+        case type::DFS_TOPOLOGICA :
+            DfsTopologica(G);
             break;
         default:
             break;

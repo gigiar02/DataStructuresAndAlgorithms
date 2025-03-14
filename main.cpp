@@ -1,5 +1,5 @@
-#include "HashTable/hash.hpp"
-
+//#include "HashTable/hash.hpp"
+#include "Albero.hpp"
 class P
 {
 public:
@@ -9,14 +9,20 @@ public:
     int END = 0;
     bool extracted = false;
     int numChild = 0;
+    int f = 0;
     std::string nome;
+    std::string name;
     std::string cognome;
 };
 
 
 int main()
 {
-    std::string cicl("File/graph.txt");
-    popolaGrafo<P>(fileType::DATA_FILE,type::BFS);
+    treeNode<P> *root;
+    root = Codifica<P>();
+    decodifica(root);
+
+    std::cout<<"Total: "<<root->getData().f;
+
     return 0;
 }

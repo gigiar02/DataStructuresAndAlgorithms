@@ -1,0 +1,7 @@
+Caratteri Codificatiiii: 
+ Char: a Value: 00
+ Char: c Value: 10
+ Char: i Value: 01
+ Char: o Value: 11
+Codifica: 
+10010011

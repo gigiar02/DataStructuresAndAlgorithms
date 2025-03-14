@@ -1,6 +1,9 @@
 #include <vector>
 #include <iostream>
 #define TEMPLATE template <typename T>
+#include <map>
+#include <fstream>
+#include <queue>
 //Colore
 enum Color
 {
@@ -32,6 +35,7 @@ public:
     {
         father = nullptr;
         color = WHITE;
+
     }
 
 
@@ -105,83 +109,68 @@ public:
 
 };
 
-
-//Nodo Albero
+//Nodo d'albero
 TEMPLATE
-class treeNode : public node<T>
+class treeNode
 {
-protected:
-    treeNode<T>* father;
+    T data;
+    treeNode* left;
+    treeNode* right;
+    treeNode* father;
 
-public:
+    public:
+        treeNode(T& data) : data(data){left = nullptr; right = nullptr; father;}
 
-    treeNode() : node<T>()
+        //Getter
+        treeNode* getLeft(){return left;}
+        treeNode* getRight(){return right;}
+        treeNode* getFather(){return father;}
+        T         getData(){return data;}
+        const T& getConstData() const {return data;}
+
+
+        //Setter
+        void setLeft(treeNode* left){this->left = left;}
+        void setRight(treeNode* right){this->right = right;}
+        void setFather(treeNode* father){this->father = father;}
+        void setData(T& data){this->data = data;}
+
+
+
+
+};
+
+
+//Binary Tree
+TEMPLATE
+class BT
+{
+    //Radice
+    protected:
+        treeNode<T>* root;
+
+    public:
+        BT(treeNode<T>* root) : root(root){}
+        BT(){root = nullptr;}
+
+        //Aggiungi un figlio sinistro al nodo
+        void addLeft(node<T>*& father,node<T>*& leftChild){father->setLeft(leftChild); leftChild->setFather(father);}
+        void addRight(node<T>*& father,node<T>*& rightChild){father->setRight(rightChild); rightChild->setFather(father);}
+};
+
+TEMPLATE
+class Verifica
+{
+    public:
+    bool operator()( treeNode<T>* one, treeNode<T>* two)
     {
-        father = nullptr;
-    }
-
-    treeNode<T>* getFather()
-    {
-        return father;
-    }
-
-
-    void setFather(treeNode<T>*& f)
-    {
-        father = f;
-    }
-
-
-    //Aggiungi un figlio al nodo che diventerà il suo nuovo padre
-    int addChild(node<T>*& newNode) override
-    {
-        treeNode<T>* child = dynamic_cast<treeNode<T>*>(newNode);
-        if(!child)
-        {
-            std::cout<<"Cast non riuscito"<<std::endl;
-            return -1;
-        }
-
-        //Aggiungi il nodo solo se non ha già un padre
-        if(!child->getFather())
-        {
-            treeNode<T>* temp = this;
-            child->setFather(temp);
-            this->adj->push_back(child);
-        }
-        else
-        {
-            std::cout<<"[!] Il nodo che si vuole aggiungere ha già un padre"<<std::endl;
-            return -1;
-        }
-
-        return 1;
+        return  one->getConstData().f > two->getConstData().f;
     }
 };
 
 
-//Albero con n figli
+//Legge dal file huffman.txt e ne scrive la codifica sul file huffmanout.txt
 TEMPLATE
-class AB
-{
-    //Radice dell'Albero
-    node<T>* root;
-
-public:
-
-    AB()
-    {
-        root = nullptr;
-    }
-
-    //Aggiungi un figlio al nodo passato in input
-    node<T>* addChild(node<T>*& child,T Data);
-    node<T>* addChild(node<T>*& father,node<T>*& child);
-
-    //Stampa tutti i figli appartenenti al figlio passato in input
-    void printChildren(node<T>* root);
-    //Stampa tutti i figli dell'albero
-    void printRoot();
-};
+treeNode<T>* Codifica();
 
 #include "Albero/Albero.tpp"

@@ -232,62 +232,151 @@ void verificaCiclo(Grafo<T>& G)
 }
 
 
+void estraiNomeCognome(std::string& appoggio1,std::string& nome,std::string& cognome)
+{
+    appoggio1 = appoggio1.erase(0,1);
+
+    std::string appoggio2;
+    for(auto c : appoggio1)
+    {
+         if(c == ',')
+         {
+            nome = appoggio2;
+            std::cout<<"Nome "<<nome<<std::endl;
+            appoggio2 = "";
+
+         }else if(c == '>')
+         {
+             cognome = appoggio2;
+             std::cout<<"Cognome "<<cognome<<std::endl;
+         }else
+         {
+            appoggio2 += c;
+         }
+
+    }
+}
+
+
+//<nome,cognome> key <nome,cognome> key W
+TEMPLATE
+Grafo<T> dataFileExtraction()
+{
+    std::string path = getFileName(fileType::DATA_FILE);
+    std::ifstream in(path);
+    std::string appoggio1;
+    std::string nome1;
+    std::string cognome1;
+    int key1;
+    std::string appoggio2;
+    std::string nome2;
+    std::string cognome2;
+    int key2;
+    int W;
+
+    Grafo<T> G;
+    if(!in)
+    {
+        perror("Errore durante la creazione del file");
+    }
+
+    while(in>>appoggio1>>key1>>appoggio2>>key2>>W)
+    {
+        std::cout<<appoggio1<<key1<<appoggio2<<key2<<W<<std::endl;
+        estraiNomeCognome(appoggio1,nome1,cognome1);
+        estraiNomeCognome(appoggio2,nome2,cognome2);
+
+        T data1,data2;
+
+        data1.key = key1;
+        data1.nome = nome1;
+        data1.cognome = cognome1;
+
+        data2.key = key2;
+        data2.nome = nome2;
+        data2.cognome = cognome2;
+
+        G.addUnorientedEdge(data1,data2,W);
+
+    }
+
+    return G;
+}
 
 
 TEMPLATE
-void popolaGrafo(fileType path,type operation)
+Grafo<T> numberFileExtraction()
 {
-    Grafo<T> G;
     std::string row;
     int num_nodi;
     int num_archi;
-    std::string name = getFileName(path);
+    std::string name = getFileName(fileType::NUMBER_FILE);
     //Apri il file in lettura
     std::ifstream inFile(name);
+    Grafo<T> G;
     if(!inFile)
     {
         perror("Errore nell' apertura del file");
     }
 
     //La prima riga contiene il numero di nodi e di archi
-    getline(inFile,row);
-    try
-    {
-        std::size_t current_pos;
-        num_nodi = std::stoi(row,&current_pos);
-        num_archi = std::stoi(row.substr(current_pos),&current_pos);
+    //getline(inFile,row);
+    inFile>>num_nodi;
+    inFile>>num_archi;
 
-
-    }
-    catch(int err){
-        perror("Inserisci correttamente il numero di nodi e di archi");
-    }
 
     //Nelle righe successive troverò "sorgente  destinazione  peso"
-    while(getline(inFile,row))
+    int key1;
+    int key2;
+    int W;
+    while(inFile>>key1>>key2>>W)
     {
+
         T data1,data2;
-        int W;
         std::size_t pos;
 
         //Estrazione dati nodi
-        data1.key = std::stoi(row,&pos);
-        data2.key = std::stoi(row.substr(pos),&pos);
-        W =  std::stoi(row.substr(pos + 1),&pos);
+        data1.key = key1;
+        data2.key = key2;
 
-        //Creazione ed inserimento nodi
-        //node<T>* first = new node<T>(data1);
-        //node<T>* second = new node<T>(data2);
-
-        //Crea arco non orientato
         G.addUnorientedEdge(data1.key,data2.key,W);
-        //G.addEdge(data2.key,data1.key,W);
-
     }
 
     //Chiudo il file per la lettura
     inFile.close();
+
+    return G;
+}
+//Estrazione dati
+TEMPLATE
+Grafo<T> estrazioneDati(fileType path)
+{
+    Grafo<T> G;
+    switch(path)
+    {
+        case fileType::NUMBER_FILE:
+            G = numberFileExtraction<T>();
+            return G;
+            break;
+        case fileType::DATA_FILE:
+            G = dataFileExtraction<T>();
+            return G;
+            break;
+        default:
+            G = numberFileExtraction<T>();
+            return G;
+            break;
+
+    }
+}
+
+
+TEMPLATE
+void popolaGrafo(fileType path,type operation)
+{
+    Grafo<T> G = estrazioneDati<T>(path);
     std::vector<node<T>*> v = G.getVertex();
+
     //Fase di scelta tra le diverse operazioni
     switch(operation)
     {

@@ -9,12 +9,14 @@ public:
     int END = 0;
     bool extracted = false;
     int numChild = 0;
+    std::string nome;
+    std::string cognome;
 };
 
 
 int main()
 {
     std::string cicl("File/graph.txt");
-    popolaGrafo<P>(fileType::NUMBER_FILE,type::DFS_TOPOLOGICA);
+    popolaGrafo<P>(fileType::DATA_FILE,type::BFS);
     return 0;
 }

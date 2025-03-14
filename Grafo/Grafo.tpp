@@ -163,6 +163,41 @@ void Grafo<T>::addUnorientedEdge(int key1,int key2,int W)
    this->addUnorientedEdge(nKey1,nKey2,W);
 }
 
+
+TEMPLATE
+void Grafo<T>::addUnorientedEdge(T& data1,T& data2,int W)
+{
+    bool eKey1 = false;
+    bool eKey2 = false;
+
+    node<T>* nKey1 = new node<T>(data1);
+    node<T>* nKey2 = new node<T>(data2);
+
+    int key1 = data1.key;
+    int key2 = data2.key;
+    for(auto& x : this->vertex)
+   {
+       //Se esiste già il nodo di cui vuoi creare un arco
+       if(x->getData().key == key1)
+       {
+           eKey1 = true;
+           nKey1 = x;
+       }
+
+       if(x->getData().key == key2)
+       {
+           eKey2 = true;
+           nKey2 = x;
+       }
+
+   }
+
+   //Aggiungi l'arco
+   this->addUnorientedEdge(nKey1,nKey2,W);
+}
+
+
+
 //Aggiunge un arco attraverso la sua key
 TEMPLATE
 void Grafo<T>::addEdge(int key1,int key2,int W)

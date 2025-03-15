@@ -15,14 +15,27 @@ public:
     std::string cognome;
 };
 
-
+std::vector<int> c = {30,70,20,10,15,60,45};
 int main()
 {
-    treeNode<P> *root;
-    root = Codifica<P>();
-    decodifica(root);
+    MinHeap<P> heap;
+    for(int i = 0; i < 7; i++)
+    {
+        P data;
+        data.key = c[i];
+        heap.heapInsert(data);
+    }
 
-    std::cout<<"Total: "<<root->getData().f;
+    heap.stampaHeap();
+    heap.BuildMinHeap();
+    heap.stampaHeap();
+
+    heap.heapSort();
+
+    heap.stampaHeap();
+
+
+
 
     return 0;
 }

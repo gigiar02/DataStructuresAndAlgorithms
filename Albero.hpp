@@ -4,6 +4,8 @@
 #include <map>
 #include <fstream>
 #include <queue>
+#include "Albero/heap.hpp"
+
 //Colore
 enum Color
 {
@@ -109,6 +111,7 @@ public:
 
 };
 
+
 //Nodo d'albero
 TEMPLATE
 class treeNode
@@ -157,6 +160,7 @@ class BT
         void addLeft(node<T>*& father,node<T>*& leftChild){father->setLeft(leftChild); leftChild->setFather(father);}
         void addRight(node<T>*& father,node<T>*& rightChild){father->setRight(rightChild); rightChild->setFather(father);}
 };
+
 
 TEMPLATE
 class Verifica

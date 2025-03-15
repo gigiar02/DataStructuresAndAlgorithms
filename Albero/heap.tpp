@@ -70,3 +70,76 @@ void MinHeap<T>::heapSort()
     }
 }
 
+
+TEMPLATE
+void MinHeap<T>::DecreaseKey(int i,int x)
+{
+    //Verifico che l'input sia valido
+    if(heap[i].key < x)
+    {
+        perror("Non e' possibile decrementare la chiave di i se x è maggiore");
+        return;
+    }
+
+    //Vado a sostituire la chiave
+    heap[i].key = x;
+    int f = getFather(i);
+    while(heap[f].key > heap[i].key && i != 0)
+    {
+        std::swap(heap[f],heap[i]);
+        i = getFather(i);
+    }
+}
+
+
+TEMPLATE
+void MinHeap<T>::stampaSuFile()
+{
+    std::ifstream in("Albero/heap.txt");
+    std::ofstream out("Albero/heapout.txt");
+    int key;
+
+    out<<"Array passato in input: "<<std::endl;
+
+    //Lettura numeri
+    while(in>>key)
+    {
+        T data;
+        data.key = key;
+        heapInsert(data);
+        out<<" Key: "<<key;
+    }
+
+    in.close();
+    out<<std::endl;
+    BuildMinHeap();
+    out<<"Post BuildMinHeap "<<std::endl;
+    for(auto x : heap)
+    {
+       out<<" Key: "<<x.key;
+    }
+
+    out<<std::endl;
+    out<<"Post DecreaseKey (4,1) "<<std::endl;
+
+    DecreaseKey(4,1);
+
+    for(auto x : heap)
+    {
+        out<<" Key: "<<x.key;
+    }
+
+    out<<std::endl;
+    out<<"Post HeapSort "<<std::endl;
+
+    heapSort();
+
+    for(auto x : heap)
+    {
+        out<<" Key: "<<x.key;
+    }
+
+    out.close();
+
+}
+

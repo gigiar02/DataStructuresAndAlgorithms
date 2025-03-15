@@ -20,7 +20,11 @@ class MinHeap
         void MinHeapify(int i);
         void BuildMinHeap();
         void heapSort();
+        void DecreaseKey(int i,int x);
+
+        //Stampa a video o su file
         void stampaHeap();
+        void stampaSuFile();
 
 };
 

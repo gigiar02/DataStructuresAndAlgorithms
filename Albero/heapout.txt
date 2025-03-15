@@ -1,0 +1,8 @@
+Array passato in input: 
+ Key: 1 Key: 10 Key: 15 Key: 70 Key: 65 Key: 40 Key: 30 Key: 100
+Post BuildMinHeap 
+ Key: 1 Key: 10 Key: 15 Key: 70 Key: 65 Key: 40 Key: 30 Key: 100
+Post DecreaseKey (4,1) 
+ Key: 1 Key: 1 Key: 15 Key: 70 Key: 10 Key: 40 Key: 30 Key: 100
+Post HeapSort 
+ Key: 100 Key: 70 Key: 40 Key: 30 Key: 15 Key: 10 Key: 1 Key: 1

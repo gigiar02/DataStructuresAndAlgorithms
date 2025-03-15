@@ -19,6 +19,8 @@ std::vector<int> c = {30,70,20,10,15,60,45};
 int main()
 {
     MinHeap<P> heap;
+    /*
+
     for(int i = 0; i < 7; i++)
     {
         P data;
@@ -31,8 +33,8 @@ int main()
     heap.stampaHeap();
 
     heap.heapSort();
-
-    heap.stampaHeap();
+    */
+    heap.stampaSuFile();
 
 
 

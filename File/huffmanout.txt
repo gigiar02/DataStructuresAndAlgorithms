@@ -1,7 +1,7 @@
-Caratteri Codificatiiii: 
- Char: a Value: 00
- Char: c Value: 10
- Char: i Value: 01
- Char: o Value: 11
+Caratteri Codificati: 
+ Char: a Value: 10
+ Char: c Value: 110
+ Char: i Value: 111
+ Char: o Value: 0
 Codifica: 
-10010011
+1101111111010100000

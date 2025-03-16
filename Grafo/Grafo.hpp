@@ -66,7 +66,6 @@ class Grafo{
         void Prim(node<T>*& s);
 
 
-
 };
 
 TEMPLATE

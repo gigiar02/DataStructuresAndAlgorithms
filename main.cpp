@@ -1,5 +1,6 @@
 //#include "HashTable/hash.hpp"
-#include "Albero.hpp"
+#include "Esercizi/krusk.hpp"
+
 class P
 {
 public:
@@ -13,12 +14,16 @@ public:
     std::string nome;
     std::string name;
     std::string cognome;
+    char c = '+';
 };
 
 std::vector<int> c = {30,70,20,10,15,60,45};
+
+
+
+
 int main()
 {
-    MinHeap<P> heap;
     /*
 
     for(int i = 0; i < 7; i++)
@@ -34,8 +39,10 @@ int main()
 
     heap.heapSort();
     */
-    heap.stampaSuFile();
+   Graph<int> g;
+   g.PopolaGrafo();
 
+   g.Kruscal();
 
 
 

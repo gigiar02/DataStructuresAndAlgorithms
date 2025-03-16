@@ -10,6 +10,7 @@ void treeDiscovery(std::map<char,std::string>& codifica,treeNode<T>*& root,std::
         codifica[z] = bit;
         return;
     }
+
     //Se hai figlio sinistro
     if(root->getLeft())
     {
@@ -17,6 +18,7 @@ void treeDiscovery(std::map<char,std::string>& codifica,treeNode<T>*& root,std::
         treeNode<T>* l = root->getLeft();
         treeDiscovery(codifica,l,leftBit);
     }
+
     if(root->getRight())
     {
         std::string RightBit = bit + "1";
@@ -33,6 +35,7 @@ treeNode<T>* Codifica()
 {
     std::ifstream in("File/huffman.txt");
     std::map<char,int> amap;
+
     char c;
     std::string h;
 
@@ -46,19 +49,18 @@ treeNode<T>* Codifica()
     for(auto& x : amap)
     {
         T data;
+
+        //frequenza
         data.f = x.second;
+
+        //carattere
         data.name = x.first;
+
         treeNode<T>* nodo = new treeNode<T>(data);
         Q.push(nodo);
-        std::cout<<"char  "<<x.first<<" f = "<<x.second<<std::endl;
-
-
     }
 
     //Codifica
-    BT<T> tree;
-
-
     const int sizeQ = Q.size();
     for(int i = 0; i < sizeQ - 1; i++)
     {
@@ -96,7 +98,8 @@ treeNode<T>* Codifica()
     std::map<char,std::string> codifica;
     std::string bitString = "";
     treeDiscovery<T>(codifica,root,bitString);
-    out<<"Caratteri Codificatiiii: "<<std::endl;
+
+    out<<"Caratteri Codificati: "<<std::endl;
 
     //Stampo i caratteri
     for(auto& x: codifica)

@@ -1,5 +1,5 @@
 //#include "HashTable/hash.hpp"
-#include "Esercizi/Esercitazione2/hash.hpp"
+#include "Esercizi/Esercitazione3/djkstra.hpp"
 
 
 
@@ -14,8 +14,9 @@ class P
 int main()
 {
 
-    hashTable<P> hash(100);
-    hash.Popola();
+    grafo<int,string> g;
+    g.popola();
+    g.BFS(1);
 
 
 

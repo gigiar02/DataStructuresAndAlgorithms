@@ -1,6 +1,14 @@
-1 2
-3 4
-5 6
-7 8
-9 10
-11 12
+ Key: 1 Value ciao
+ Key: 2 Value bo
+ Key: 3 Value b
+ Key: 4 Value s
+ Key: 5 Value n
+ Key: 6 Value bo
+ Key: 7 Value bo
+
+ s: 1 d: 2 distanza da nodo partenza: 1
+ s: 1 d: 3 distanza da nodo partenza: 1
+ s: 1 d: 4 distanza da nodo partenza: 1
+ s: 1 d: 5 distanza da nodo partenza: 1
+ s: 1 d: 6 distanza da nodo partenza: 1
+ s: 2 d: 7 distanza da nodo partenza: 2

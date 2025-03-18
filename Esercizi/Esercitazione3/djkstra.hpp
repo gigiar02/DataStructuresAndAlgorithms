@@ -9,7 +9,11 @@
 
 using namespace std;
 #define TEMPLATE template<typename T,typename S>
-
+int num_cicli = 0;
+int num_indietro = 0;
+int num_avanti = 0;
+int num_albero = 0;
+int num_trasversale = 0;
 enum class color
 {
     WHITE,
@@ -26,6 +30,7 @@ class node
     int distance;
     int START;
     int END;
+    bool ex = false;
     color col;
     node<T,S>* predecessor;
 
@@ -33,6 +38,12 @@ public:
         node<T,S>(T& key,S& value) : key(key), value(value){}
         node<T,S>(){}
 
+        /*
+        bool operator()(node<T,S>*& x,node<T,S>*& y)
+        {
+            return (x->distance > y->distance);
+        }
+        */
         vector<node<T,S>*> gadj(){return adj;}
         T gkey(){return key;}
         S gvalue(){return value;}
@@ -41,13 +52,28 @@ public:
         int ge(){return END;}
         color gc(){return col;}
         node<T,S>* gp(){return predecessor;}
+        bool gex(){return ex;}
 
         void spredecessor(node<T,S>*& p){predecessor = p;}
         void sd(int d){distance = d;}
         void append(node<T,S>*& child){adj.push_back(child);}
         void sc(color c){col = c;}
+        void ss(int s){START = s;}
+        void se(int e){END = e;}
+        void sex(){ex = true;}
 
 
+};
+
+
+TEMPLATE
+class Compare
+{
+    public:
+        bool operator()(node<T,S>*& x,node<T,S>*& y)
+        {
+            return (x->gd() > y->gd());
+        }
 };
 
 TEMPLATE
@@ -95,13 +121,19 @@ public:
        return creato;
     }
 
-    void adduedge(T& key1,S& value1,T& key2,S& value2)
+    void adduedge(T& key1,S& value1,T& key2,S& value2,int w)
     {
         node<T,S>* x =  findv(key1,value1);
         node<T,S>* y =  findv(key2,value2);
 
         x->append(y);
         y->append(x);
+        edge<T,S>* ed = new edge<T,S>();
+        ed->e.first = x;
+        ed->e.second = y;
+        ed->weight = w;
+
+        E.push_back(ed);
     }
 
     void popola()
@@ -111,12 +143,13 @@ public:
         T key,key2;
         S value,value2;
         char appoggio;
+        int w;
 
-        while(in>>appoggio>>key>>appoggio>>value>>appoggio>>key2>>appoggio>>value2)
+        while(in>>appoggio>>key>>appoggio>>value>>appoggio>>key2>>appoggio>>value2>>w)
         {
             value.erase(value.size()-1,1);
             value2.erase(value2.size()-1,1);
-            adduedge(key,value,key2,value2);
+            adduedge(key,value,key2,value2,w);
         }
 
         ofstream out("Esercizi/out.txt");
@@ -182,6 +215,156 @@ public:
         }
 
 
+        out.close();
+
+    }
+
+
+    void dfs_visit(node<T,S>*& u,int& TIME,fstream& out)
+    {
+        u->sc(color::GRAY);
+        TIME++;
+        u->ss(TIME);
+
+        for(auto& v : V)
+        {
+            if(v->gc() == color::WHITE)
+            {
+                v->sc(color::GRAY);
+                v->spredecessor(u);
+                dfs_visit(v,TIME,out);
+
+                num_albero++;
+
+            }else if(v->gc() == color::GRAY)
+            {
+                num_cicli++;
+            }else if(v->gc() == color::BLACK)
+            {
+                if(u->gs() >= v -> gs())
+                {
+                    num_trasversale++;
+                }else
+                {
+                    num_avanti++;
+                }
+            }
+        }
+
+        u->sc(color::BLACK);
+        TIME++;
+        u->se(TIME);
+
+        out<<"nodo = "<<u->gkey()<<" START: "<<u->gs()<<" END: "<<u->ge()<<endl;
+
+    }
+
+
+    void DFS()
+    {
+        fstream out;
+        out.open("Esercizi/out.txt",ios::out|ios::app);
+
+        out<<endl<<endl<<" DFS: "<<endl;
+
+        for(auto& v : V)
+        {
+            v->sc(color::WHITE);
+            node<T,S>* p = nullptr;
+            v->spredecessor(p);
+            v->ss(0);
+            v->se(0);
+        }
+        int TIME = 0;
+
+        for(auto& u : V)
+        {
+            if(u->gc() == color::WHITE)
+            {
+                dfs_visit(u,TIME,out);
+            }
+        }
+
+        out<<"Albero: "<<num_albero<<" Avanti: "<<num_avanti<<" Indietro: "<<num_indietro<<" Tresversale: "<<num_trasversale<<endl;
+        out.close();
+
+    }
+
+
+
+    edge<T,S>* finduedge(node<T,S>*& u,node<T,S>*& v)
+    {
+        for(auto& x : E)
+        {
+            if(x->e.first == u && x->e.second == v)
+            {
+                return x;
+            }else if(x->e.first == v && x->e.second == u)
+            {
+                return x;
+            }
+        }
+
+        return nullptr;
+    }
+
+    void prim(int key)
+    {
+        S value;
+        node<T,S>* s = findv(key,value);
+        fstream out;
+        out.open("Esercizi/out.txt",ios::out|ios::app);
+
+        priority_queue<node<T,S>*,vector<node<T,S>*>,Compare<T,S>> Q;
+
+        out<<" PRIM: "<<endl;
+
+        for(auto& x : V)
+        {
+            if(x != s)
+            {
+               x->sd(INT_MAX);
+                node<T,S>* m = nullptr;
+                x->spredecessor(m);
+                Q.push(x);
+            }
+        }
+
+        s->sd(0);
+        node<T,S>* m = nullptr;
+        s->spredecessor(m);
+        Q.push(s);
+
+
+
+        while(!Q.empty())
+        {
+            node<T,S>* u = Q.top();
+            u->sex();
+
+            if(u->gp())
+            {
+                T key = u->gp()->gkey();
+                T key2 = u->gkey();
+                S value;
+                node<T,S>* f = findv(u->gp()->gkey(),value);
+                int W = finduedge(f,u)->weight;
+                out<<" u: "<<key<<" v: "<<key2<<" W: "<<W<<endl;
+            }
+
+            for(auto& v : u->gadj())
+            {
+                edge<T,S>* px = finduedge(u,v);
+
+                int w = px->weight;
+                if(!v->gex() && w < v->gd())
+                {
+                    v->sd(w);
+                    v->spredecessor(u);
+                }
+            }
+            Q.pop();
+        }
         out.close();
 
     }

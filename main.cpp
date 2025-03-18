@@ -17,6 +17,8 @@ int main()
     grafo<int,string> g;
     g.popola();
     g.BFS(1);
+    g.DFS();
+    g.prim(1);
 
 
 

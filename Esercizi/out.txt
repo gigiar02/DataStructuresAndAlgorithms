@@ -12,3 +12,21 @@
  s: 1 d: 5 distanza da nodo partenza: 1
  s: 1 d: 6 distanza da nodo partenza: 1
  s: 2 d: 7 distanza da nodo partenza: 2
+
+
+ DFS: 
+nodo = 7 START: 7 END: 8
+nodo = 6 START: 6 END: 9
+nodo = 5 START: 5 END: 10
+nodo = 4 START: 4 END: 11
+nodo = 3 START: 3 END: 12
+nodo = 2 START: 2 END: 13
+nodo = 1 START: 1 END: 14
+Albero: 6 Avanti: 15 Indietro: 0 Tresversale: 0
+ PRIM: 
+ u: 1 v: 2 W: 3
+ u: 1 v: 4 W: 4
+ u: 4 v: 7 W: 1
+ u: 1 v: 5 W: 6
+ u: 1 v: 6 W: 7
+ u: 1 v: 3 W: 30

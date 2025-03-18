@@ -1,6 +1,9 @@
-<1,ciao> <2,bo>
-<1,cia> <3,b>
-<1,ciao> <4,s>
-<1,ciao> <5,n>
-<1,ciao> <6,bo>
-<2,ciao> <7,bo>
+<1,ciao> <2,bo> 3
+<1,cia> <3,b> 30
+<1,ciao> <4,s> 4
+<1,ciao> <5,n> 6
+<1,ciao> <6,bo> 7
+<2,ciao> <7,bo> 9
+<4,ciao> <7,bo> 1
+
+

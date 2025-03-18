@@ -22,7 +22,7 @@ nodo = 4 START: 4 END: 11
 nodo = 3 START: 3 END: 12
 nodo = 2 START: 2 END: 13
 nodo = 1 START: 1 END: 14
-Albero: 6 Avanti: 15 Indietro: 0 Tresversale: 0
+Albero: 6 Avanti: 15 Indietro: 28 Tresversale: 0
  PRIM: 
  u: 1 v: 2 W: 3
  u: 1 v: 4 W: 4
@@ -30,3 +30,21 @@ Albero: 6 Avanti: 15 Indietro: 0 Tresversale: 0
  u: 1 v: 5 W: 6
  u: 1 v: 6 W: 7
  u: 1 v: 3 W: 30
+
+
+ DJKSTRA: 
+
+ u: 2 distance: 3
+ u: 4 distance: 4
+ u: 6 distance: 7
+ u: 7 distance: 5
+ u: 5 distance: 6
+ u: 3 distance: 30
+ BELLMAN FORD: 
+ node: 1 distance: 0
+ node: 2 distance: 3
+ node: 3 distance: 30
+ node: 4 distance: 4
+ node: 5 distance: 6
+ node: 6 distance: 7
+ node: 7 distance: 5

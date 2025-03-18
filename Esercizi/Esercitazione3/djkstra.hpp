@@ -285,7 +285,7 @@ public:
             }
         }
 
-        out<<"Albero: "<<num_albero<<" Avanti: "<<num_avanti<<" Indietro: "<<num_indietro<<" Tresversale: "<<num_trasversale<<endl;
+        out<<"Albero: "<<num_albero<<" Avanti: "<<num_avanti<<" Indietro: "<<num_cicli<<" Tresversale: "<<num_trasversale<<endl;
         out.close();
 
     }
@@ -367,6 +367,116 @@ public:
         }
         out.close();
 
+    }
+
+    void relax(node<T,S>*& u,node<T,S>*& v)
+    {
+        edge<T,S>* ed = finduedge(u,v);
+        int w = ed->weight;
+
+        if(w + u->gd() < v->gd())
+        {
+            v->sd(w + u->gd());
+            v->spredecessor(u);
+        }
+    }
+    void djkstra(int key)
+    {
+        fstream out;
+        S value;
+        node<T,S>* s = findv(key,value);
+        out.open("Esercizi/out.txt",ios::out|ios::app);
+        priority_queue<node<T,S>*,vector<node<T,S>*>,Compare<T,S>> Q;
+
+        out<<endl<<endl<<" DJKSTRA: "<<endl<<endl;
+
+        for(auto& v : V)
+        {
+            if(v != s)
+            {
+               v->sd(INT_MAX);
+               node<T,S>* m = nullptr;
+               v->spredecessor(m);
+               Q.push(v);
+            }
+        }
+
+        s->sd(0);
+        node<T,S>* m = nullptr;
+        s->spredecessor(m);
+        Q.push(s);
+
+        while(!Q.empty())
+        {
+            node<T,S>* u = Q.top();
+            if(u->gp())
+            {
+               out<<" u: "<<u->gkey()<<" distance: "<<u->gd()<<endl;
+            }
+            Q.pop();
+
+            for(auto& v : u->gadj())
+            {
+                relax(u,v);
+            }
+        }
+
+        out.close();
+
+
+
+    }
+
+    void bellmanFord(int key)
+    {
+       fstream out;
+       S value;
+       node<T,S>* s = findv(key,value);
+       out.open("Esercizi/out.txt",ios::out|ios::app);
+       out<<" BELLMAN FORD: "<<endl;
+
+       for(auto& v : V)
+       {
+           if(v != s)
+           {
+               v->sd(INT_MAX);
+               node<T,S>* m = nullptr;
+               v->spredecessor(m);
+           }
+       }
+
+       s->sd(0);
+       node<T,S>* m = nullptr;
+       s->spredecessor(m);
+
+       for(int i = 0; i < V.size()-2;i++)
+       {
+           for(auto& uv : E)
+           {
+               node<T,S>* u = uv->e.first;
+               node<T,S>* v = uv->e.second;
+               relax(u,v);
+           }
+       }
+
+       for(auto& uv : E)
+       {
+            node<T,S>* u = uv->e.first;
+            node<T,S>* v = uv->e.second;
+               if(u->gd() + uv->weight < v->gd())
+               {
+                   out<<"Il ciclo è di peso negativo "<<endl;
+                   return;
+               }
+      }
+
+      for(auto& v : V)
+       {
+          out<<" node: "<<v->gkey()<<" distance: "<<v->gd()<<endl;
+       }
+
+
+        out.close();
     }
 
 

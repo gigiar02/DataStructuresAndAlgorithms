@@ -19,6 +19,8 @@ int main()
     g.BFS(1);
     g.DFS();
     g.prim(1);
+    g.djkstra(1);
+    g.bellmanFord(1);
 
 
 

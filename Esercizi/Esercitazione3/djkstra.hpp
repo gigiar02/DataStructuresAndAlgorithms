@@ -33,17 +33,11 @@ class node
     bool ex = false;
     color col;
     node<T,S>* predecessor;
-
++
 public:
         node<T,S>(T& key,S& value) : key(key), value(value){}
         node<T,S>(){}
 
-        /*
-        bool operator()(node<T,S>*& x,node<T,S>*& y)
-        {
-            return (x->distance > y->distance);
-        }
-        */
         vector<node<T,S>*> gadj(){return adj;}
         T gkey(){return key;}
         S gvalue(){return value;}
@@ -61,8 +55,6 @@ public:
         void ss(int s){START = s;}
         void se(int e){END = e;}
         void sex(){ex = true;}
-
-
 };
 
 

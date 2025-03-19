@@ -1,5 +1,5 @@
 //#include "HashTable/hash.hpp"
-#include "Esercizi/Esercitazione3/djkstra.hpp"
+#include "Esercizi/Esercizio4/grafo.hpp"
 
 
 
@@ -14,13 +14,9 @@ class P
 int main()
 {
 
-    grafo<int,string> g;
+    GrafoHash<int,string> g(100);
     g.popola();
-    g.BFS(1);
-    g.DFS();
-    g.prim(1);
-    g.djkstra(1);
-    g.bellmanFord(1);
+    g.print();
 
 
 

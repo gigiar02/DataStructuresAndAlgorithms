@@ -1,5 +1,5 @@
 //#include "HashTable/hash.hpp"
-#include "Esercizi/Esercizio4/grafo.hpp"
+#include "Esercizi/Componenti_connesse/lib.hpp"
 
 
 
@@ -7,16 +7,19 @@
 
 class P
 {
-
+    public:
+    int key;
+    int distance = 0;
+    Color color = Color::WHITE;
 };
 
 
 int main()
 {
 
-    GrafoHash<int,string> g(100);
-    g.popola();
-    g.print();
+   Grafo<P> G;
+   G.popola();
+   G.calcolaComponentiConnesse();
 
 
 

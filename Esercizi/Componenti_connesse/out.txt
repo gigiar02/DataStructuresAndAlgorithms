@@ -1,0 +1,6 @@
+Radice: 5
+
+Componente: 30
+Componente: 20
+Componente: 10
+Componente: 5
